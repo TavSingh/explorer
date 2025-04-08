@@ -1,4 +1,9 @@
 import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Test;
 
 public class ExplorerSearchTest {
@@ -17,6 +22,8 @@ public class ExplorerSearchTest {
 
     // Add more tests here!
     // Come up with varied cases
+
+    // Explorer location
     @Test
     public void testExplorerLocation_reachableTest() {
         int[][] island = {
@@ -71,4 +78,35 @@ public class ExplorerSearchTest {
         assertArrayEquals(expected, ExplorerSearch.explorerLocation(island));
     }
 
+    // Possible moves
+    @Test
+    public void testPossibleMoves_openSpace() {
+        int[][] island = {
+            {1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1},
+            {1,1,1,0,1,1,1},
+            {1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1},
+        };
+        int[] location = {2,3};
+        List<int[]> moves = ExplorerSearch.possibleMoves(island, location);
+        Set<String> moveSet = toSet(moves);
+        // for (String move : moveSet) {
+        //     System.out.println(move);
+        // }
+
+        assertEquals(4, moves.size());
+        assertTrue(moveSet.contains("1,3")); // up
+        assertTrue(moveSet.contains("2,2")); // left
+        assertTrue(moveSet.contains("2,4")); // right
+        assertTrue(moveSet.contains("3,3")); // down
+    }
+
+    private Set<String> toSet(List<int[]> list) {
+        Set<String> set = new HashSet<>();
+        for (int[] arr : list) {
+            set.add(arr[0] + "," + arr[1]);
+        }
+        return set;
+    }
 }
