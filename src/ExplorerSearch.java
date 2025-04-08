@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class ExplorerSearch {
 
@@ -44,5 +45,30 @@ public class ExplorerSearch {
             }
         }
         throw new IllegalArgumentException("No explorer present");
+    }
+
+    public static List<int[]> possibleMoves(int[][] island, int[] current) {
+        int curR = current[0];
+        int curC = current[1];
+
+        List<int[]> moves = new ArrayList<>();
+
+        // Up
+        int newR = curR - 1;
+        int newC = curC;
+        if (newR >= 0 && island[newR][newC] != 2 || island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
+
+        // Down
+        newR = curR + 1;
+        newC = curC;
+        if (newR < island.length && island[newR][newC] != 2 || island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
+
+        // Left
+
+        //
     }
 }
