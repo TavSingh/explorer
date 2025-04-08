@@ -29,10 +29,27 @@ public class ExplorerSearch {
      * @return the number of spaces the explorer can reach
      */
     public static int reachableArea(int[][] island) {
-        // Implement your method here!
-        // Please also make more test cases
-        // I STRONGLY RECOMMEND testing some helpers you might make too
-        return -1;
+        int[] start = explorerLocation(island);
+        boolean[][] visited = new boolean[island.length][island[0].length];
+        return reachableArea(island, start, visited);
+    }
+
+    public static int reachableArea(int[][] island, int[] current, boolean[][] visited) {
+        int curR = current[0];
+        int curC = current[1];
+        int count = 0;
+        
+        if (visited[curR][curC]) return 0;
+        visited[curR][curC] = true;
+    
+        count++;
+
+        List<int[]> moves = possibleMoves(island, current);
+        for (int[] move : moves) {
+            count+= reachableArea(island, move, visited);
+        }
+
+        return count;
     }
 
     public static int[] explorerLocation(int[][] island) {
@@ -55,28 +72,28 @@ public class ExplorerSearch {
         // Up
         int newR = curR - 1;
         int newC = curC;
-        if (newR >= 0 && island[newR][newC] > 0) {
+        if (newR >= 0 && island[newR][newC] == 1) {
             moves.add(new int[]{newR, newC});
         }
 
         // Down
         newR = curR + 1;
         newC = curC;
-        if (newR < island.length && island[newR][newC] > 0) {
+        if (newR < island.length && island[newR][newC] == 1) {
             moves.add(new int[]{newR, newC});
         }
 
         // Left
         newR = curR;
         newC = curC - 1;
-        if (newC >= 0 && island[newR][newC] > 0) {
+        if (newC >= 0 && island[newR][newC] == 1) {
             moves.add(new int[]{newR, newC});
         }
 
         // Right
         newR = curR;
         newC = curC + 1;
-        if (newC < island[0].length && island[newR][newC] > 0) {
+        if (newC < island[0].length && island[newR][newC] == 1) {
             moves.add(new int[]{newR, newC});
         }
         return moves;
