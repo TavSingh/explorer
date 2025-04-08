@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class ExplorerSearch {
 
@@ -68,7 +67,18 @@ public class ExplorerSearch {
         }
 
         // Left
+        newR = curR;
+        newC = curC - 1;
+        if (newC >= island[0].length && island[newR][newC] != 2 || island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
 
-        //
+        // Right
+        newR = curR;
+        newC = newC + 1;
+        if (newC < island[0].length && island[newR][newC] != 2 || island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
+        return moves;
     }
 }
